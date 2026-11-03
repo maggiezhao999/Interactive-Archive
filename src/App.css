@@ -72,7 +72,6 @@ textarea {
   width: 900px;
   max-width: 100%;
   aspect-ratio: 918 / 407;
-  background-image: url("/assets/ticket.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }

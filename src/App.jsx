@@ -11,6 +11,8 @@ import {
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./App.css";
+const asset = (path) =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
 
 // MAP ICONS
 
@@ -208,11 +210,11 @@ function Postcard({ front, back }) {
         onClick={() => setFlipped(!flipped)}
       >
         <div className="postcard-face postcard-front">
-          <img src={front} alt="Postcard front" />
+          <img src={asset(front)} alt="Postcard front" />
         </div>
 
         <div className="postcard-face postcard-back">
-          <img src={back} alt="Postcard back" />
+          <img src={asset(back)} alt="Postcard back" />
         </div>
       </div>
 
@@ -403,7 +405,7 @@ function App() {
         {backgroundPhotos.map((item) => (
           <img
             key={item.id}
-            src={item.image}
+            src={item.image.startsWith("data:") ? item.image : asset(item.image)}
             alt=""
           />
         ))}
@@ -413,7 +415,12 @@ function App() {
 
       {showTicket && (
         <div className="ticket-screen">
-          <div className="ticket">
+          <div
+            className="ticket"
+            style={{
+              backgroundImage: `url("${asset("/assets/ticket.png")}")`,
+            }}
+          >
 
             <div className="ticket-from">
               WORLD
@@ -549,7 +556,7 @@ function App() {
 
                     {item.type === "photo" && (
                       <img
-                        src={item.image}
+                        src={item.image.startsWith("data:") ? item.image : asset(item.image)}
                         alt={item.city}
                         className="archive-photo"
                       />
