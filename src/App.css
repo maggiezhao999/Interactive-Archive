@@ -1,0 +1,524 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f5f3ee;
+  color: #242424;
+  font-family: Arial, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+.app {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+}
+
+/* DYNAMIC PHOTO BACKGROUND */
+
+.photo-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.photo-background img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+/* WELCOME TICKET */
+
+.ticket-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: #f5f3ee;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.ticket {
+  position: relative;
+  width: 900px;
+  max-width: 100%;
+  aspect-ratio: 918 / 407;
+  background-image: url("/assets/ticket.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.ticket-from {
+  position: absolute;
+  left: 3%;
+  top: 42%;
+  font-size: clamp(10px, 1.5vw, 18px);
+}
+
+.ticket-destination {
+  position: absolute;
+  left: 47%;
+  top: 34%;
+  width: 25%;
+  padding: 8px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: clamp(11px, 1.5vw, 18px);
+  color: black;
+  cursor: pointer;
+}
+
+.ticket-travel {
+  position: absolute;
+  left: 8%;
+  bottom: 15%;
+  padding: 10px 22px;
+  border: 1px solid black;
+  border-radius: 0;
+  background: white;
+  color: black;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ticket-travel:hover {
+  background: black;
+  color: white;
+}
+
+/* ARCHIVE LAYOUT */
+
+.archive-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.archive-hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* HEADER */
+
+.header {
+  text-align: center;
+  padding: 28px 20px 18px;
+}
+
+.header h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 42px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+/* FILTERS AND SEARCH */
+
+.toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 15px 25px;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+}
+
+.filters button {
+  padding: 9px 17px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.filters button.active {
+  background: #242424;
+  color: white;
+  border-color: #242424;
+}
+
+.toolbar input {
+  width: 220px;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background: white;
+  outline: none;
+}
+
+/* MAP */
+
+.map-wrapper {
+  flex: 1;
+  min-height: 500px;
+  padding: 0 25px;
+}
+
+.map {
+  width: 100%;
+  height: 65vh;
+  min-height: 500px;
+  border-radius: 8px;
+  z-index: 0;
+}
+
+.map-picking {
+  cursor: crosshair;
+}
+
+.map-picking .leaflet-container {
+  cursor: crosshair;
+}
+
+.emoji-marker {
+  background: transparent;
+  border: none;
+}
+
+.emoji-marker span {
+  display: block;
+  text-align: center;
+  line-height: 36px;
+}
+
+/* LOCATION INSTRUCTIONS */
+
+.location-instruction {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 12px 20px;
+  background: #242424;
+  color: white;
+  text-align: center;
+  font-size: 13px;
+}
+
+.location-instruction button {
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+/* ARCHIVE POPUP */
+
+.archive-popup {
+  min-width: 280px;
+  text-align: center;
+}
+
+.archive-popup h3 {
+  margin: 8px 0 4px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.archive-popup p {
+  margin: 0;
+  font-size: 12px;
+  color: #777;
+}
+
+.archive-popup span {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 10px;
+  color: #777;
+  text-transform: uppercase;
+}
+
+.archive-popup .memory-caption {
+  margin: 12px 0 5px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #444;
+  white-space: pre-wrap;
+}
+
+/* POSTCARD FLIP */
+
+.postcard-container {
+  width: 280px;
+  max-width: 100%;
+  margin: 15px auto;
+  perspective: 1000px;
+}
+
+.postcard {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.7s ease;
+}
+
+.postcard.flipped {
+  transform: rotateY(180deg);
+}
+
+.postcard-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.postcard-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.postcard-back {
+  transform: rotateY(180deg);
+}
+
+.flip-hint {
+  margin-top: 12px;
+  font-size: 11px;
+  color: #888;
+}
+
+/* ARCHIVE PHOTO */
+
+.archive-photo {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  max-height: 300px;
+  object-fit: contain;
+  margin: 15px auto;
+  border-radius: 4px;
+}
+
+/* BOTTOM EMOJI NAVIGATION */
+
+.bottom-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 55px;
+  padding: 25px 0 12px;
+}
+
+.emoji-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.emoji-button span {
+  font-size: 38px;
+  line-height: 1.2;
+}
+
+.emoji-button small {
+  font-size: 11px;
+  color: #777;
+}
+
+.emoji-button:hover {
+  transform: translateY(-5px);
+}
+
+/* UPLOAD MODAL */
+
+.upload-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.upload-panel {
+  position: relative;
+  width: 440px;
+  max-width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+  background: #f5f3ee;
+  border: 1px solid #242424;
+  border-radius: 4px;
+}
+
+.upload-panel h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.upload-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.upload-panel form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-label {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.upload-panel input[type="text"],
+.upload-panel textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  background: white;
+  font-size: 13px;
+  outline: none;
+}
+
+.upload-panel textarea {
+  resize: vertical;
+}
+
+.file-input {
+  width: 100%;
+  font-size: 12px;
+}
+
+.upload-preview {
+  width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  margin: 5px 0;
+  background: #e8e5df;
+}
+
+.choose-location {
+  padding: 12px;
+  border: 1px solid #242424;
+  background: transparent;
+  color: #242424;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.choose-location:hover {
+  background: #e8e5df;
+}
+
+.location-confirmation {
+  font-size: 11px;
+  color: #526b49;
+  margin: 2px 0;
+}
+
+.save-memory {
+  margin-top: 15px;
+  padding: 13px;
+  border: none;
+  background: #242424;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.save-memory:hover {
+  background: #444;
+}
+
+.save-memory:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 32px;
+  }
+
+  .toolbar {
+    gap: 12px;
+  }
+
+  .map-wrapper {
+    padding: 0 10px;
+  }
+
+  .ticket-travel {
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+
+  .upload-panel {
+    padding: 22px;
+  }
+
+  .photo-background {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
